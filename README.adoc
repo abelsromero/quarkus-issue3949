@@ -1,0 +1,37 @@
+= Quarkus issue https://github.com/quarkusio/quarkus/issues/3949[#3949] reproducer
+:icons: font
+:test-sources: src/test/java
+
+== How to reproduce the issue
+
+=== Using JUnit
+
+. Just run test `should_fail_creating_a_conference_with_an_existing_name` in class `ConferencesResourceTest` from console with `mvn test` or from IDE.
+Test will fail.
++
+[NOTE]
+====
+Tests use https://github.com/database-rider/database-rider[database-rider] to inject data into an in-memory database.
+Data inserted is found in file `conferences.yml`.
+====
+
+. Uncomment `@Provider` in `GenericExceptionMapper` and repeat.
+Now, test will pass.
+
+=== Quakus DEV mode
+
+. Start volatile PostgreSQL server with script `./devops/run-postgresdb.sh`.
+Database will be cleared every time the service is started.
+
+. Start Quarkus with `mvn clean compile quarkus:dev`.
+
+. Execute following curl twice.
+
+ curl -X POST http://localhost:8080/conferences -H 'Content-Type: application/json' -d '{"name":"something"}'
++
+The second time it will fail because an entity with same name is already present.
+In that call, the default HTML response will be returned instead of JSON generated in the ExceptionMappers.
+
+. Uncomment `@Provider` in `GenericExceptionMapper` and repeat.
+In that scenario a JSON response and status 418 will be returned.
+Also a log message from the class will appear.

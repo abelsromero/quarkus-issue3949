@@ -1,0 +1,16 @@
+CONFERENCE:
+  - id: 10001
+    name: "Test Conf"
+    created_by: "test-user"
+    created_on: "[DAY,NOW]"
+    updated_on: "[DAY,NOW]"
+  - id: 10019
+    name: "JBCNConf 2019"
+    created_by: "test-user"
+    created_on: "[DAY,NOW]"
+    updated_on: "[DAY,NOW]"
+  - id: 10020
+    name: "JBCNConf 2020"
+    created_by: "test-user"
+    created_on: "[DAY,NOW]"
+    updated_on: "[DAY,NOW]"
