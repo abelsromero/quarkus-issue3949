@@ -12,7 +12,7 @@ import javax.ws.rs.ext.Provider;
  * Generic `ExceptionMapper` to avoid issues with accidentally leaked exceptions.
  */
 @Slf4j
-@Provider
+// @Provider
 public class GenericExceptionMapper implements ExceptionMapper<Exception> {
 
     @Override
